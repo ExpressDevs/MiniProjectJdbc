@@ -25,8 +25,7 @@ public class TicketingMenu {
 
     public void mainMenu() {        //  메소드 첫 구동
 
-        this.td = tm.startTicketing();
-
+//        this.td = tm.startTicketing();
         loginMenu();
         pay.paymentMethod(selectLogin, tm.TimeSchedule(td), nowLoginMember);
         TicketCheck();
@@ -53,10 +52,8 @@ public class TicketingMenu {
         switch (input) {
             case "1" :
                 nowLoginMember = mm.memberLogin();
-                mq.updateLogin(selectLogin,nowLoginMember.getId());
                 this.selectLogin = 1;
-
-
+                mq.updateLogin(selectLogin,nowLoginMember.getId());
                 break;
             case "2" :
                 mm.nonMemberLogin();
