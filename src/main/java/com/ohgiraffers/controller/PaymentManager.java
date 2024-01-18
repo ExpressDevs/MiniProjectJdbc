@@ -40,7 +40,7 @@ public class PaymentManager {
                         System.out.println("==============================================");
                         System.out.println("번호를 잘못 누르셨습니다. 다시 선택해주세요.");
                     }
-                case 2:
+                case 0:
                     if (select == 1) {
                         NonMemberCardChoice();
                         return;
@@ -169,6 +169,7 @@ public class PaymentManager {
                 break;
             default:
                 break;
+
         }
 
 

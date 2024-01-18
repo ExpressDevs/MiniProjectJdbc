@@ -1,6 +1,7 @@
 package com.ohgiraffers.controller;
 
 import com.ohgiraffers.model.DTO.MemberDTO;
+import com.ohgiraffers.query.MemberQuery;
 
 import java.util.Scanner;
 
@@ -8,6 +9,7 @@ import static com.ohgiraffers.run.Application.memberList;
 
 public class MemberManager {
 
+    private MemberQuery mq =new MemberQuery();
     private Scanner sc = new Scanner(System.in);
     private String nonMemberPhone = "";         // 비회원 로그인에 사용되는 핸드폰번호
     private String nonMemberPsw = "";           // 비회원 로그인에 사용되는 비밀번호
@@ -41,6 +43,7 @@ public class MemberManager {
 
         }
 
+        mq.insertMember(newName, newAge, newId, newPsw);
         MemberDTO newMember = new MemberDTO(newName, newAge, newId, newPsw, mileage);
         return newMember;
     }

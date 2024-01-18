@@ -5,6 +5,7 @@ import com.ohgiraffers.controller.PaymentManager;
 import com.ohgiraffers.controller.TicketingManager;
 import com.ohgiraffers.model.DTO.MemberDTO;
 import com.ohgiraffers.model.DTO.TicketDTO;
+import com.ohgiraffers.query.MemberQuery;
 
 import java.util.Scanner;
 
@@ -14,20 +15,15 @@ public class TicketingMenu {
 
     private static int selectLogin = 0;
     private static MemberDTO nowLoginMember;
-    private MemberDTO DH = new MemberDTO("김동환", 26 , "ehdghks", "ehdghks123", 20000);
-    private MemberDTO JW = new MemberDTO("이진우", 26 , "wlsdn", "wlsdn123", 15000);
-    private MemberDTO SR = new MemberDTO("이서린", 21 , "tjfls", "tjfls123", 10000);
     private MemberDTO newMember;
     private Scanner sc = new Scanner(System.in);
     private MemberManager mm = new MemberManager();
     private TicketingManager tm = new TicketingManager();
     private TicketDTO td;
     private PaymentManager pay = new PaymentManager();
+    private MemberQuery mq = new MemberQuery();
 
     public void mainMenu() {        //  메소드 첫 구동
-        memberList.add(DH);         //  회원정보를 멤버 리스트에 추가
-        memberList.add(JW);
-        memberList.add(SR);
 
         this.td = tm.startTicketing();
 
@@ -57,11 +53,13 @@ public class TicketingMenu {
         switch (input) {
             case "1" :
                 nowLoginMember = mm.memberLogin();
+                mq.updateLogin(selectLogin,nowLoginMember.getId());
                 this.selectLogin = 1;
+
+
                 break;
             case "2" :
                 mm.nonMemberLogin();
-                this.selectLogin = 2;
                 break;
             case "3" :
                 this.newMember = mm.signUp();
