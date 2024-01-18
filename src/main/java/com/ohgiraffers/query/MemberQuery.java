@@ -163,7 +163,7 @@ public class MemberQuery {
                     member.setAge(rset.getInt("member_age"));
                     member.setId(rset.getString("id"));
                     member.setPwd(rset.getString("password"));
-
+                    member.setMileage(rset.getInt("member_mileage"));
                 }
             }
 

@@ -6,6 +6,7 @@ import com.ohgiraffers.controller.TicketingManager;
 import com.ohgiraffers.model.DTO.MemberDTO;
 import com.ohgiraffers.model.DTO.TicketDTO;
 import com.ohgiraffers.query.MemberQuery;
+import com.ohgiraffers.query.OrderQuery;
 
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ import static com.ohgiraffers.run.Application.memberList;
 
 public class TicketingMenu {
 
+    private static String ticketNum="";
     private static int selectLogin = 0;
     private static MemberDTO nowLoginMember;
     private MemberDTO newMember;
@@ -22,12 +24,18 @@ public class TicketingMenu {
     private TicketDTO td;
     private PaymentManager pay = new PaymentManager();
     private MemberQuery mq = new MemberQuery();
+    private OrderQuery oq = new OrderQuery();
 
     public void mainMenu() {        //  메소드 첫 구동
 
-//        this.td = tm.startTicketing();
+        createTicketNum();
+
+
+        this.td = tm.startTicketing();
         loginMenu();
-        pay.paymentMethod(selectLogin, tm.TimeSchedule(td), nowLoginMember);
+
+        pay.paymentMethod(selectLogin, tm.TimeSchedule(td), nowLoginMember, td);
+        oq.insertOrder(ticketNum, nowLoginMember.getId(), td.getStartStation(), td.getEndStation(), td.getDepartureTime(), td.getBillingAmount(), td.getPaymentMethod(), td.getTotalAmount());
         TicketCheck();
         System.out.println("즐거운 여행이 되길바랍니다.");
     }
@@ -77,11 +85,23 @@ public class TicketingMenu {
             String input = sc.nextLine();
             switch (input) {
                 case "1" :
-                    td.TicketInfo();
+                    td.TicketInfo(ticketNum);
                 case "2" : return;
                 default:
                     System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
             }
+        }
+    }
+
+    public void createTicketNum() {
+        int num = 1;
+        while (num < 4) {
+            ticketNum += (int)(Math.random() * 9 + 1);
+            num++;
+        }
+        while (num < 7) {
+            ticketNum += (char) (Math.random() * 26 + 65);
+            num++;
         }
     }
 }
