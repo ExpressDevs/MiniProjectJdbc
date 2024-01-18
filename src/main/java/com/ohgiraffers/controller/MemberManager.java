@@ -38,13 +38,10 @@ public class MemberManager {
             } else {
                 System.out.println("입력하신 비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
             }
-
         }
-
         MemberDTO newMember = new MemberDTO(newName, newAge, newId, newPsw, mileage);
         return newMember;
     }
-
 
     public String IdDuplicateCheck() {
         while (true) {
@@ -56,14 +53,12 @@ public class MemberManager {
                     isDuplicate = true;
                     break;
                 }
-
             }
             if (isDuplicate) {
                 System.out.println("이미 사용중인 아이디 입니다. 다시 입력해주세요.");
             } else {
                 return newId;
             }
-
         }
     }
 
@@ -87,7 +82,6 @@ public class MemberManager {
             }
             System.out.println("==============================================");
             System.out.println("로그인 정보가 일치하지 않습니다. 다시 시도해주세요.");
-
         }
     }
 

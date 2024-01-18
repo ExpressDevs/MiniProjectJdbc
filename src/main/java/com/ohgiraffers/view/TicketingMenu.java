@@ -33,7 +33,7 @@ public class TicketingMenu {
 
         loginMenu();
         pay.paymentMethod(selectLogin, tm.TimeSchedule(td), nowLoginMember);
-        TicketCheck();
+        td.TicketInfo();
         System.out.println("즐거운 여행이 되길바랍니다.");
     }
 
@@ -71,22 +71,22 @@ public class TicketingMenu {
         }
     }
 
-    public void TicketCheck() {
-        while (true) {
-            System.out.println("==============================================");
-            System.out.println("예매하신 내역을 확인하시겠습니까?");
-            System.out.println("1. 예매내역 확인");
-            System.out.println("2. 프로그램 종료");
-            System.out.println("==============================================");
-            System.out.print("메뉴 선택 : ");
-            String input = sc.nextLine();
-            switch (input) {
-                case "1" :
-                    td.TicketInfo();
-                case "2" : return;
-                default:
-                    System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
-            }
-        }
-    }
+//    public void TicketCheck() {
+//        while (true) {
+//            System.out.println("==============================================");
+//            System.out.println("예매하신 내역을 확인하시겠습니까?");
+//            System.out.println("1. 예매내역 확인");
+//            System.out.println("2. 프로그램 종료");
+//            System.out.println("==============================================");
+//            System.out.print("메뉴 선택 : ");
+//            String input = sc.nextLine();
+//            switch (input) {
+//                case "1" :
+//                    td.TicketInfo();
+//                case "2" : return;
+//                default:
+//                    System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
+//            }
+//        }
+//    }
 }

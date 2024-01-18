@@ -2,6 +2,7 @@ package com.ohgiraffers.controller;
 
 import com.ohgiraffers.model.DTO.TicketDTO;
 import com.ohgiraffers.model.DTO.TrainDTO;
+import com.ohgiraffers.query.goods;
 
 import java.util.*;
 
@@ -12,6 +13,7 @@ public class TicketingManager {
     Scanner sc = new Scanner(System.in);
     private String startStation;
     private String endStation;
+    private goods goods = new goods();
 
     private static ArrayList<ArrayList<Integer>> trainSeats = new ArrayList<>();
 
@@ -205,6 +207,7 @@ public class TicketingManager {
             sc.nextLine();
 
             int count = 0;
+            String product = "";
             if (age > 0 && age < 5) {
                 System.out.println("==============================================");
                 System.out.print("구매하실 티켓 매수를 입력해주세요 : ");
@@ -219,32 +222,41 @@ public class TicketingManager {
                     System.out.println("선택된 티켓이 없습니다. 구입하실 티켓 매수를 입력해주세요");
                     continue;
                 }
-
             }
 
             switch (age) {
                 case 1:
                     td.setAdultTicketCount(count);
                     td.setTotal(count);
+                    product = "일반";
+                    goods.insertTicketProduct(product);
+                    goods.insertTicketCount(count);
                     break;
                 case 2:
                     td.setSeniorTicketCount(count);
                     td.setTotal(count);
+                    product = "시니어";
+                    goods.insertTicketProduct(product);
+                    goods.insertTicketCount(count);
                     break;
                 case 3:
                     td.setTeenagerTicketCount(count);
                     td.setTotal(count);
+                    product = "어린이";
+                    goods.insertTicketProduct(product);
+                    goods.insertTicketCount(count);
                     break;
                 case 4:
                     td.setChildrenTicketCount(count);
                     td.setTotal(count);
+                    product = "영유아";
+                    goods.insertTicketProduct(product);
+                    goods.insertTicketCount(count);
                     break;
-
                 default:
                     System.out.println("==============================================");
                     System.out.println("번호를 잘못 누르셨습니다. 다시 시도해주세요.");
             }
-
         }
     }
 
@@ -278,10 +290,9 @@ public class TicketingManager {
                         (timeSchedule.get(i).getPrice() * td.getTeenagerTicketCount()) +
                         (timeSchedule.get(i).getPrice() * td.getChildrenTicketCount());
             }
-
         }
-
         return sum;
+
 
     }
 

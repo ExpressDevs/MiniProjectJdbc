@@ -1,5 +1,7 @@
 package com.ohgiraffers.model.DTO;
 
+import com.ohgiraffers.query.goods;
+
 public class TicketDTO {
 
     private int adultTicketCount = 0;
@@ -7,8 +9,9 @@ public class TicketDTO {
     private int teenagerTicketCount = 0;
     private int childrenTicketCount = 0;
     private int total = 0;
+    private goods goods = new goods();
 
-    String startStation="";
+    String startStation = "";
 
     public TicketDTO() {
     }
@@ -79,7 +82,7 @@ public class TicketDTO {
             num++;
         }
         while (num < 7) {
-            ticketNum += (char) (Math.random() * 26 + 65);
+            ticketNum += (char)(Math.random() * 26 + 65);
             num++;
         }
 
@@ -112,6 +115,7 @@ public class TicketDTO {
 
         ticketInfo += " 입니다.";
 
+        goods.insertAll();
         System.out.println(ticketInfo);
     }
 
