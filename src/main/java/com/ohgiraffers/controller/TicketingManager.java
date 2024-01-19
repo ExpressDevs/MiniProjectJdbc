@@ -271,6 +271,12 @@ public class TicketingManager {
         timeSchedule.add(new TrainDTO("대전역", "부산역", 24000));
         timeSchedule.add(new TrainDTO("대전역", "동대구역", 20000));
 
+        timeSchedule.add(new TrainDTO("동탄역", "수서역", 22000));
+        timeSchedule.add(new TrainDTO("동탄역", "부산역", 25000));
+        timeSchedule.add(new TrainDTO("동탄역", "동대구역", 20000));
+        timeSchedule.add(new TrainDTO("동탄역", "대전역", 18000));
+
+
         int sum = 0;
         for (int i = 0; i < timeSchedule.size(); i++) {
             if (timeSchedule.get(i).getDeparture().equals(startStation) && timeSchedule.get(i).getArrival().equals(endStation)) {

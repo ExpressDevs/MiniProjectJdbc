@@ -34,8 +34,8 @@
 
     <entry key="updateMileage">
         UPDATE tbl_member
-        SET Mileage = ?
-        WHERE id = ?
+           SET member_mileage = ?
+         WHERE id = ?
     </entry>
 
 </properties>

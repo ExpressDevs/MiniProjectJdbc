@@ -14,7 +14,7 @@ import static com.ohgiraffers.run.Application.memberList;
 
 public class TicketingMenu {
 
-    private static String ticketNum="";
+    private static String ticketNum = "";
     private static int selectLogin = 0;
     private static MemberDTO nowLoginMember;
     private MemberDTO newMember;
@@ -35,7 +35,14 @@ public class TicketingMenu {
         loginMenu();
 
         pay.paymentMethod(selectLogin, tm.TimeSchedule(td), nowLoginMember, td);
-        oq.insertOrder(ticketNum, nowLoginMember.getId(), td.getStartStation(), td.getEndStation(), td.getDepartureTime(), td.getBillingAmount(), td.getPaymentMethod(), td.getTotalAmount());
+        oq.insertOrder(ticketNum
+                , nowLoginMember.getId()
+                , td.getStartStation()
+                , td.getEndStation()
+                , td.getDepartureTime()
+                , td.getBillingAmount()
+                , td.getPaymentMethod()
+                , td.getTotalAmount());
         TicketCheck();
         System.out.println("즐거운 여행이 되길바랍니다.");
     }
@@ -58,15 +65,15 @@ public class TicketingMenu {
         }
 
         switch (input) {
-            case "1" :
+            case "1":
                 nowLoginMember = mm.memberLogin();
                 this.selectLogin = 1;
-                mq.updateLogin(selectLogin,nowLoginMember.getId());
+                mq.updateLogin(selectLogin, nowLoginMember.getId());
                 break;
-            case "2" :
+            case "2":
                 mm.nonMemberLogin();
                 break;
-            case "3" :
+            case "3":
                 this.newMember = mm.signUp();
                 memberList.add(this.newMember);
                 loginMenu();
@@ -84,9 +91,10 @@ public class TicketingMenu {
             System.out.print("메뉴 선택 : ");
             String input = sc.nextLine();
             switch (input) {
-                case "1" :
+                case "1":
                     td.TicketInfo(ticketNum);
-                case "2" : return;
+                case "2":
+                    return;
                 default:
                     System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
             }
@@ -96,7 +104,7 @@ public class TicketingMenu {
     public void createTicketNum() {
         int num = 1;
         while (num < 4) {
-            ticketNum += (int)(Math.random() * 9 + 1);
+            ticketNum += (int) (Math.random() * 9 + 1);
             num++;
         }
         while (num < 7) {

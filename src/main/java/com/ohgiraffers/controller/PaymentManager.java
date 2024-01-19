@@ -204,7 +204,7 @@ public class PaymentManager {
         int remainingMoney = 0;
         int num = 0;
         while (true) {
-            System.out.println("1. 전액 지불\n2. 만원 투입\n3. 오천원 투입\n4. 천원 투입");
+            System.out.print("1. 전액 지불\n2. 만원 투입\n3. 오천원 투입\n4. 천원 투입");
             System.out.println("==============================================");
             System.out.print("메뉴를 선택해주세요 : ");
             String receivedCash = sc.nextLine();

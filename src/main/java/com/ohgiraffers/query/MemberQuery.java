@@ -100,7 +100,7 @@ public class MemberQuery {
 
         try {
             prop.loadFromXML(new FileInputStream("src/main/java/com/ohgiraffers/mapper/member-query.xml"));
-            String query = prop.getProperty("updateLogin");
+            String query = prop.getProperty("updateMileage");
 
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, mileage);
@@ -185,7 +185,7 @@ public class MemberQuery {
         ResultSet rset = null;
         Boolean check = false;
 
-        String query = "SELECT ? FROM tbl_member";
+        String query = "SELECT id FROM tbl_member WHERE id = ?";
 
         try {
             pstmt = con.prepareStatement(query);
