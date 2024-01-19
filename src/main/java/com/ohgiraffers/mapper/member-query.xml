@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="signUp">
+        INSERT INTO tbl_member(
+                                member_name
+                                ,member_age
+                                ,id
+                                ,password
+                               )
+        VALUES (
+        ?
+        ,?
+        ,?
+        ,?
+        )
+    </entry>
+    <entry key="insertNonMember">
+        INSERT INTO tbl_member(
+                                id
+                                ,password
+                                )
+        VALUES (
+        ?
+        ,?
+        )
+    </entry>
+
+    <entry key="updateLogin">
+        UPDATE tbl_member
+           SET member_login = ?
+         WHERE id = ?
+    </entry>
+
+    <entry key="updateMileage">
+        UPDATE tbl_member
+           SET member_mileage = ?
+         WHERE id = ?
+    </entry>
+
+</properties>

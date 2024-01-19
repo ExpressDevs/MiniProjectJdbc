@@ -1,6 +1,7 @@
 package com.ohgiraffers.controller;
 
 import com.ohgiraffers.model.DTO.MemberDTO;
+import com.ohgiraffers.query.MemberQuery;
 
 import java.util.Scanner;
 
@@ -8,6 +9,7 @@ import static com.ohgiraffers.run.Application.memberList;
 
 public class MemberManager {
 
+    private MemberQuery mq = new MemberQuery();
     private Scanner sc = new Scanner(System.in);
     private String nonMemberPhone = "";         // 비회원 로그인에 사용되는 핸드폰번호
     private String nonMemberPsw = "";           // 비회원 로그인에 사용되는 비밀번호
@@ -40,6 +42,10 @@ public class MemberManager {
             }
         }
         MemberDTO newMember = new MemberDTO(newName, newAge, newId, newPsw, mileage);
+        mq.insertMember(newName, newAge, newId, newPsw);
+        mq.updateLogin(0, newMember.getId());
+        mq.updateMileage(0, newMember.getId());
+
         return newMember;
     }
 
@@ -48,11 +54,9 @@ public class MemberManager {
             System.out.println("사용하실 ID를 입력해주세요. : ");
             String newId = sc.nextLine();
             Boolean isDuplicate = false;
-            for (MemberDTO member : memberList) {
-                if (member.getId().equals(newId)) {
-                    isDuplicate = true;
-                    break;
-                }
+          
+            if (mq.signUpIdCheck(newId)) {
+                isDuplicate = true;
             }
             if (isDuplicate) {
                 System.out.println("이미 사용중인 아이디 입니다. 다시 입력해주세요.");
@@ -71,14 +75,16 @@ public class MemberManager {
             String inputID = sc.nextLine();
             System.out.println("==============================================");
             System.out.print("비밀번호를 입력하세요: ");
-            String inputPsw = sc.nextLine();
+            String inputPwd = sc.nextLine();
+
+
+            mq.loginCheck(inputID, inputPwd);
 
             MemberDTO nowLoginMember;
-            for (MemberDTO member : memberList) {
-                if (member.getId().equals(inputID) && member.getPwd().equals(inputPsw)) {
-                    nowLoginMember = member;
-                    return nowLoginMember;
-                }
+
+            if (mq.loginCheck(inputID, inputPwd)) {
+                nowLoginMember = mq.nowLoginMember(inputID);
+                return nowLoginMember;
             }
             System.out.println("==============================================");
             System.out.println("로그인 정보가 일치하지 않습니다. 다시 시도해주세요.");
@@ -98,21 +104,23 @@ public class MemberManager {
             }
         }
         this.nonMemberPhone = phone;
-        String psw;
+        String pwd;
         while (true) {
             System.out.println("==============================================");
             System.out.print("사용하실 비밀번호를 입력해주세요 \n: ");
-            psw = sc.nextLine();
+            pwd = sc.nextLine();
             System.out.print("비밀번호를 한 번 더 입력해주세요 \n: ");
             String checkPsw = sc.nextLine();
-            if (psw.equals(checkPsw)) {
+            if (pwd.equals(checkPsw)) {
                 break;
             } else {
                 System.out.println("==============================================");
                 System.out.println("입력하신 비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
             }
         }
-        this.nonMemberPsw = psw;
+        this.nonMemberPsw = pwd;
+        mq.insertNonMember(phone, pwd);
+        mq.updateLogin(0, phone);
     }
 
     public void findID() {

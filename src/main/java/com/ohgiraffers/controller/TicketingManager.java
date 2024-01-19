@@ -14,6 +14,8 @@ public class TicketingManager {
     private String startStation;
     private String endStation;
     private goods goods = new goods();
+    private TicketDTO td = new TicketDTO();
+
 
     private static ArrayList<ArrayList<Integer>> trainSeats = new ArrayList<>();
 
@@ -21,7 +23,6 @@ public class TicketingManager {
 
         String startStation = selectStartStation();         //  출발역 선택
         String endStation = selectEndStation(startStation); //  도착역 선택
-        TicketDTO td;                                       //  객체 생성, td라는 변수를 사용할 수 있게하기 위함
 
         td = TicketCount();
         td.setStartStation(startStation);
@@ -40,6 +41,7 @@ public class TicketingManager {
                 System.out.println("예매 가능한 좌석의 수가 부족합니다. 다른 시간대를 선택해주세요.");
                 selectedTime = time;
             } else {
+                td.setDepartureTime(time);
                 break;
             }
 
@@ -117,6 +119,7 @@ public class TicketingManager {
             } else {
                 endStation = remainingStations.get(endStationIndex - 1);
                 this.endStation = endStation;
+                td.setEndStation(endStation);
                 return endStation;
             }
         }
@@ -197,7 +200,6 @@ public class TicketingManager {
 
 
     public TicketDTO TicketCount() {
-        TicketDTO td = new TicketDTO();
         while (true) {
             System.out.println("=================== 인원정보 ==================");
             System.out.println("1. 일반 \n2. 시니어(만 65세 이상)\n3. 어린이(만 6세이상 만 12세 미만) \n4. 영유아(만 6세미만) \n5. 다음 단계");
@@ -282,6 +284,12 @@ public class TicketingManager {
         timeSchedule.add(new TrainDTO("대전역", "부산역", 24000));
         timeSchedule.add(new TrainDTO("대전역", "동대구역", 20000));
 
+        timeSchedule.add(new TrainDTO("동탄역", "수서역", 22000));
+        timeSchedule.add(new TrainDTO("동탄역", "부산역", 25000));
+        timeSchedule.add(new TrainDTO("동탄역", "동대구역", 20000));
+        timeSchedule.add(new TrainDTO("동탄역", "대전역", 18000));
+
+
         int sum = 0;
         for (int i = 0; i < timeSchedule.size(); i++) {
             if (timeSchedule.get(i).getDeparture().equals(startStation) && timeSchedule.get(i).getArrival().equals(endStation)) {
@@ -291,6 +299,8 @@ public class TicketingManager {
                         (timeSchedule.get(i).getPrice() * td.getChildrenTicketCount());
             }
         }
+
+        td.setBillingAmount(sum);
         return sum;
 
 

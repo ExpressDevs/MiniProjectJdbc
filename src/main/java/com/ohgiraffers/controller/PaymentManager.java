@@ -1,16 +1,21 @@
 package com.ohgiraffers.controller;
 
 import com.ohgiraffers.model.DTO.MemberDTO;
+import com.ohgiraffers.model.DTO.TicketDTO;
+import com.ohgiraffers.query.MemberQuery;
 
 import java.util.Scanner;
 
 
 public class PaymentManager {
     Scanner sc = new Scanner(System.in);
+    private MemberQuery mq = new MemberQuery();
     private MemberDTO nowLoginMember;
+    private TicketDTO td;
     private int price;
 
-    public void paymentMethod(int selectLogin, int sum, MemberDTO nowLoginMember) {
+    public void paymentMethod(int selectLogin, int sum, MemberDTO nowLoginMember, TicketDTO td) {
+        this.td = td;
         this.price = sum;
         this.nowLoginMember = nowLoginMember;
         if (selectLogin == 1) {
@@ -34,17 +39,21 @@ public class PaymentManager {
                         return;
                     } else if (select == 2) {
                         MemberPayWithCash();
+                        this.td.setPaymentMethod("현금");
+                        this.td.setTotalAmount(price);
                         return;
                     } else {
                         System.out.println("==============================================");
                         System.out.println("번호를 잘못 누르셨습니다. 다시 선택해주세요.");
                     }
-                case 2:
+                case 0:
                     if (select == 1) {
                         NonMemberCardChoice();
                         return;
                     } else if (select == 2) {
                         NonMemberPayWithCash();
+                        this.td.setPaymentMethod("현금");
+                        this.td.setTotalAmount(price);
                         return;
                     } else {
                         System.out.println("==============================================");
@@ -82,6 +91,7 @@ public class PaymentManager {
                         price = price - inputMileage;
                         int usedMileage = nowLoginMember.getMileage() - inputMileage;
                         nowLoginMember.setMileage(usedMileage);
+                        mq.updateMileage(usedMileage, nowLoginMember.getId());
                         return;
                     } else {
                         System.out.println("==============================================");
@@ -101,7 +111,10 @@ public class PaymentManager {
         int getMileage = (int) (price * 0.05);
         System.out.println("==============================================");
         System.out.println("적립된 마일리지 금액은" + getMileage + "입니다.");
+        int afterMileage = nowLoginMember.getMileage() + getMileage;
         nowLoginMember.addMileage(getMileage);
+        mq.updateMileage(afterMileage, nowLoginMember.getId());
+
         System.out.println("==============================================");
         System.out.println("현재 보유하신 마일리지는 " + nowLoginMember.getMileage() + "원 입니다.");
     }
@@ -127,7 +140,7 @@ public class PaymentManager {
         PaymentCash();
     }
 
-    public void PaymentCard() {
+    public String PaymentCard() {
         System.out.println("=============== 카드 결제를 선택하셨습니다. ===============");
         System.out.println("아래 카드사별 할인 안내표를 확인해주세요");
         System.out.println("* 삼성카드 5% * 국민카드 7% * 농협카드 3% * 신한카드 1% *");
@@ -142,32 +155,43 @@ public class PaymentManager {
         sc.nextLine();
         int finalPriceCard = 0;
         int discountedPrice = 0;
+        String paymentMethod = "";
         switch (chosenCard) {
             case 1:
                 System.out.println("=========== 삼성카드를 선택하셨습니다. ===========");
                 finalPriceCard = (int) (price * 0.95);
                 discountedPrice = (int) (price * 0.05);
+                paymentMethod = "삼성";
                 break;
             case 2:
                 System.out.println("=========== 국민카드를 선택하셨습니다. ===========");
                 finalPriceCard = (int) (price * 0.93);
                 discountedPrice = (int) (price * 0.07);
+                paymentMethod = "국민";
                 break;
             case 3:
                 System.out.println("=========== 농협카드를 선택하셨습니다. ===========");
                 finalPriceCard = (int) (price * 0.97);
                 discountedPrice = (int) (price * 0.03);
+                paymentMethod = "농협";
                 break;
             case 4:
                 System.out.println("=========== 신한카드를 선택하셨습니다. ===========");
                 finalPriceCard = (int) (price * 0.99);
                 discountedPrice = (int) (price * 0.01);
+                paymentMethod = "신한";
                 break;
             default:
                 break;
+
         }
         this.price = finalPriceCard;
         System.out.println("카드 할인 적용된 금액은 " + finalPriceCard + "원 입니다. 할인된 금액은 " + (discountedPrice) + "원 입니다.");
+
+        td.setTotalAmount(finalPriceCard);
+        td.setPaymentMethod(paymentMethod);
+        return paymentMethod;
+
     }
 
     public void PaymentCash() {
@@ -175,8 +199,8 @@ public class PaymentManager {
         int remainingMoney = 0;
         int num = 0;
         while (true) {
-            System.out.println("1. 전액 지불\n2. 만원 투입\n3. 오천원 투입\n4. 천원 투입");
-            System.out.println("==============================================");
+            System.out.print("1. 전액 지불\n2. 만원 투입\n3. 오천원 투입\n4. 천원 투입");
+            System.out.print("==============================================");
             System.out.print("메뉴를 선택해주세요 : ");
             String receivedCash = sc.nextLine();
 

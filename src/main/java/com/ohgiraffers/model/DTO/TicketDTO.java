@@ -4,14 +4,18 @@ import com.ohgiraffers.query.goods;
 
 public class TicketDTO {
 
+    private String startStation;
+    private String endStation;
+    private String departureTime;
+    private int billingAmount;
+    private int totalAmount;
+    private String paymentMethod;
     private int adultTicketCount = 0;
     private int seniorTicketCount = 0;
     private int teenagerTicketCount = 0;
     private int childrenTicketCount = 0;
     private int total = 0;
     private goods goods = new goods();
-
-    String startStation = "";
 
     public TicketDTO() {
     }
@@ -24,6 +28,38 @@ public class TicketDTO {
         this.startStation = startStation;
     }
 
+    public int getBillingAmount() {
+        return billingAmount;
+    }
+
+    public void setBillingAmount(int billingAmount) {
+        this.billingAmount = billingAmount;
+    }
+
+    public int getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
+    }
+
     public String getStartStation() {
         return startStation;
     }
@@ -31,6 +67,14 @@ public class TicketDTO {
     public void setStartStation(String startStation) {
         this.startStation = startStation;
 
+    }
+
+    public String getEndStation() {
+        return endStation;
+    }
+
+    public void setEndStation(String endStation) {
+        this.endStation = endStation;
     }
 
     public int getAdultTicketCount() {
@@ -74,18 +118,10 @@ public class TicketDTO {
     }
 
 
-    public void TicketInfo() {
-        String ticketNum = "";
-        int num = 1;
-        while (num < 4) {
-            ticketNum += (int)(Math.random() * 9 + 1);
-            num++;
-        }
-        while (num < 7) {
-            ticketNum += (char)(Math.random() * 26 + 65);
-            num++;
-        }
+   
 
+
+    public void TicketInfo(String ticketNum) {
         System.out.println("==============================================");
         String ticketInfo = "============== 예매하신 티켓 내역 ==============\n";
         ticketInfo += "티켓번호 : " + ticketNum + "\n";
