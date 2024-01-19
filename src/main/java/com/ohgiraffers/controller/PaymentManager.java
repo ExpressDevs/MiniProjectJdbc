@@ -14,7 +14,6 @@ public class PaymentManager {
     private TicketDTO td;
     private int price;
 
-
     public void paymentMethod(int selectLogin, int sum, MemberDTO nowLoginMember, TicketDTO td) {
         this.td = td;
         this.price = sum;
@@ -118,13 +117,11 @@ public class PaymentManager {
 
         System.out.println("==============================================");
         System.out.println("현재 보유하신 마일리지는 " + nowLoginMember.getMileage() + "원 입니다.");
-
     }
 
     public void NonMemberCardChoice() {
         PaymentCard();
         System.out.println("결제가 완료되었습니다. 즐거운 여행이 되십쇼.");
-
     }
 
     public void MemberPayWithCash() {
@@ -140,7 +137,6 @@ public class PaymentManager {
     }
 
     public void NonMemberPayWithCash() {
-
         PaymentCash();
     }
 
@@ -189,10 +185,9 @@ public class PaymentManager {
                 break;
 
         }
-
-
         this.price = finalPriceCard;
         System.out.println("카드 할인 적용된 금액은 " + finalPriceCard + "원 입니다. 할인된 금액은 " + (discountedPrice) + "원 입니다.");
+
         td.setTotalAmount(finalPriceCard);
         td.setPaymentMethod(paymentMethod);
         return paymentMethod;
@@ -208,6 +203,7 @@ public class PaymentManager {
             System.out.print("==============================================");
             System.out.print("메뉴를 선택해주세요 : ");
             String receivedCash = sc.nextLine();
+
             switch (receivedCash) {
                 case "1":
                     System.out.println("==============================================");
@@ -247,7 +243,6 @@ public class PaymentManager {
                         System.out.println("추가로 지불하셔야할 금액은 " + remainingMoney + "원 입니다.");
                         break;
                     }
-
                 case "4":
                     num += 1000;
                     if (num > price) {
@@ -268,6 +263,4 @@ public class PaymentManager {
             }
         }
     }
-
-
 }

@@ -32,7 +32,7 @@ public class TicketingMenu {
 
 
         this.td = tm.startTicketing();
-        loginMenu();
+        loginMenu();  
 
         pay.paymentMethod(selectLogin, tm.TimeSchedule(td), nowLoginMember, td);
         oq.insertOrder(ticketNum
@@ -44,6 +44,7 @@ public class TicketingMenu {
                 , td.getPaymentMethod()
                 , td.getTotalAmount());
         TicketCheck();
+      
         System.out.println("즐거운 여행이 되길바랍니다.");
     }
 

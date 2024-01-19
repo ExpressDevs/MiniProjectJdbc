@@ -1,5 +1,7 @@
 package com.ohgiraffers.model.DTO;
 
+import com.ohgiraffers.query.goods;
+
 public class TicketDTO {
 
     private String startStation;
@@ -13,6 +15,7 @@ public class TicketDTO {
     private int teenagerTicketCount = 0;
     private int childrenTicketCount = 0;
     private int total = 0;
+    private goods goods = new goods();
 
     public TicketDTO() {
     }
@@ -115,6 +118,9 @@ public class TicketDTO {
     }
 
 
+   
+
+
     public void TicketInfo(String ticketNum) {
         System.out.println("==============================================");
         String ticketInfo = "============== 예매하신 티켓 내역 ==============\n";
@@ -145,6 +151,7 @@ public class TicketDTO {
 
         ticketInfo += " 입니다.";
 
+        goods.insertAll();
         System.out.println(ticketInfo);
     }
 
