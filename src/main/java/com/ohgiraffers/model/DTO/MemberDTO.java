@@ -10,19 +10,17 @@ public class MemberDTO {
     public MemberDTO() {
     }
 
-    public MemberDTO(String name, int age, String id, String pwd) {
-        this.name = name;
-        this.age = age;
-        this.id = id;
-        this.pwd = pwd;
-    }
-
     public MemberDTO(String name, int age, String id, String pwd, int mileage) {
         this.name = name;
         this.age = age;
         this.id = id;
         this.pwd = pwd;
         this.mileage = mileage;
+    }
+
+    public MemberDTO(String id, String pwd) {
+        this.id = id;
+        this.pwd = pwd;
     }
 
     public String getId() {

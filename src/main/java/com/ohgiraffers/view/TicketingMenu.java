@@ -7,6 +7,7 @@ import com.ohgiraffers.model.DTO.MemberDTO;
 import com.ohgiraffers.model.DTO.TicketDTO;
 import com.ohgiraffers.query.MemberQuery;
 import com.ohgiraffers.query.OrderQuery;
+import com.ohgiraffers.query.ProductQuery;
 
 import java.util.Scanner;
 
@@ -25,6 +26,7 @@ public class TicketingMenu {
     private PaymentManager pay = new PaymentManager();
     private MemberQuery mq = new MemberQuery();
     private OrderQuery oq = new OrderQuery();
+    private ProductQuery pq = new ProductQuery();
 
     public void mainMenu() {        //  메소드 첫 구동
 
@@ -43,6 +45,22 @@ public class TicketingMenu {
                 , td.getBillingAmount()
                 , td.getPaymentMethod()
                 , td.getTotalAmount());
+
+        if (td.getAdultTicketCount() > 0) {
+            pq.insertGoods(ticketNum, td.getAdult(), td.getAdultTicketCount());
+        }
+        if (td.getSeniorTicketCount() > 0) {
+            pq.insertGoods(ticketNum, td.getSenior(), td.getAdultTicketCount());
+        }
+        if (td.getTeenagerTicketCount() > 0) {
+            pq.insertGoods(ticketNum, td.getTeenager(), td.getTeenagerTicketCount());
+        }
+        if (td.getChildrenTicketCount() > 0) {
+            pq.insertGoods(ticketNum, td.getChildren(), td.getChildrenTicketCount());
+        }
+        System.out.println(td.getChildren());
+        System.out.println(td.getAdult());
+
         TicketCheck();
         System.out.println("즐거운 여행이 되길바랍니다.");
     }
@@ -71,7 +89,7 @@ public class TicketingMenu {
                 mq.updateLogin(selectLogin, nowLoginMember.getId());
                 break;
             case "2":
-                mm.nonMemberLogin();
+                nowLoginMember = mm.nonMemberLogin();
                 break;
             case "3":
                 this.newMember = mm.signUp();
