@@ -30,6 +30,7 @@ public class PaymentManager {
         System.out.println("==============================================");
         System.out.print("결제 방식을 선택하세요 : ");
         int select = sc.nextInt();
+        sc.nextLine();
 
         while (true) {
             switch (selectLogin) {
@@ -198,9 +199,9 @@ public class PaymentManager {
         System.out.println("=========== 현금 결제를 선택하셨습니다. ===========");
         int remainingMoney = 0;
         int num = 0;
-        while (true) {
-            System.out.print("1. 전액 지불\n2. 만원 투입\n3. 오천원 투입\n4. 천원 투입");
-            System.out.print("==============================================");
+        do {
+            System.out.print("1. 전액 지불\n2. 만원 투입\n3. 오천원 투입\n4. 천원 투입\n");
+            System.out.println("==============================================");
             System.out.print("메뉴를 선택해주세요 : ");
             String receivedCash = sc.nextLine();
 
@@ -261,6 +262,6 @@ public class PaymentManager {
                         break;
                     }
             }
-        }
+        }  while (true);
     }
 }

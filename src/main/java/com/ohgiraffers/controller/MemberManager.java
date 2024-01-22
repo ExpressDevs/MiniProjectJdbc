@@ -43,8 +43,9 @@ public class MemberManager {
         }
         MemberDTO newMember = new MemberDTO(newName, newAge, newId, newPsw, mileage);
         mq.insertMember(newName, newAge, newId, newPsw);
-        mq.updateLogin(0, newMember.getId());
+        mq.updateLogin(1, newMember.getId());
         mq.updateMileage(0, newMember.getId());
+
 
         return newMember;
     }
@@ -91,7 +92,7 @@ public class MemberManager {
         }
     }
 
-    public void nonMemberLogin() {
+    public MemberDTO nonMemberLogin() {
         String phone;
         while (true) {
             System.out.println("==============================================");
@@ -103,7 +104,7 @@ public class MemberManager {
                 System.out.println("010을 포함한 11자리로 다시 입력해주세요.");
             }
         }
-        this.nonMemberPhone = phone;
+
         String pwd;
         while (true) {
             System.out.println("==============================================");
@@ -118,9 +119,10 @@ public class MemberManager {
                 System.out.println("입력하신 비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
             }
         }
-        this.nonMemberPsw = pwd;
+
         mq.insertNonMember(phone, pwd);
         mq.updateLogin(0, phone);
+        return new MemberDTO(phone, pwd);
     }
 
     public void findID() {
