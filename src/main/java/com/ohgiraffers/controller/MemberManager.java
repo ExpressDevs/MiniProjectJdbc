@@ -40,9 +40,7 @@ public class MemberManager {
             } else {
                 System.out.println("입력하신 비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
             }
-
         }
-
         MemberDTO newMember = new MemberDTO(newName, newAge, newId, newPsw, mileage);
         mq.insertMember(newName, newAge, newId, newPsw);
         mq.updateLogin(1, newMember.getId());
@@ -52,12 +50,12 @@ public class MemberManager {
         return newMember;
     }
 
-
     public String IdDuplicateCheck() {
         while (true) {
             System.out.println("사용하실 ID를 입력해주세요. : ");
             String newId = sc.nextLine();
             Boolean isDuplicate = false;
+          
             if (mq.signUpIdCheck(newId)) {
                 isDuplicate = true;
             }
@@ -91,7 +89,6 @@ public class MemberManager {
             }
             System.out.println("==============================================");
             System.out.println("로그인 정보가 일치하지 않습니다. 다시 시도해주세요.");
-
         }
     }
 
