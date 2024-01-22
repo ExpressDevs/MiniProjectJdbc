@@ -58,8 +58,6 @@ public class TicketingMenu {
         if (td.getChildrenTicketCount() > 0) {
             pq.insertGoods(ticketNum, td.getChildren(), td.getChildrenTicketCount());
         }
-        System.out.println(td.getChildren());
-        System.out.println(td.getAdult());
 
         TicketCheck();
         System.out.println("즐거운 여행이 되길바랍니다.");
@@ -86,7 +84,6 @@ public class TicketingMenu {
             case "1":
                 nowLoginMember = mm.memberLogin();
                 this.selectLogin = 1;
-                mq.updateLogin(selectLogin, nowLoginMember.getId());
                 break;
             case "2":
                 nowLoginMember = mm.nonMemberLogin();

@@ -45,8 +45,9 @@ public class MemberManager {
 
         MemberDTO newMember = new MemberDTO(newName, newAge, newId, newPsw, mileage);
         mq.insertMember(newName, newAge, newId, newPsw);
-        mq.updateLogin(0, newMember.getId());
+        mq.updateLogin(1, newMember.getId());
         mq.updateMileage(0, newMember.getId());
+
 
         return newMember;
     }
